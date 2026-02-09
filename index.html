@@ -1,1 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let's Chicken - Order Fresh Chicken Online</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #8b4513; /* Brown theme to match chicken farm vibe */
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        nav {
+            background-color: #d2a679;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        section {
+            padding: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 10px;
+        }
+        input, select, textarea {
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #8b4513;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #a0522d;
+        }
+        footer {
+            background-color: #8b4513;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        .menu-item {
+            margin-bottom: 20px;
+        }
+        .menu-item h3 {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
 
+    <header>
+        <h1>Let's Chicken</h1>
+        <p>Fresh, farm-raised chickens delivered to your door in Johannesburg and surrounding areas.</p>
+    </header>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="#order">Order</a>
+        <a href="#enquiry">Enquiry</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <section id="home">
+        <h2>Welcome to Let's Chicken</h2>
+        <p>We provide high-quality broiler chickens straight from our farm in Mosetjane. Whether you're looking for whole chickens, cuts, or bulk orders, we've got you covered. Contact us for custom orders or enquiries.</p>
+        <!-- You can add the flyer image here if you have a URL or base64 encode it -->
+        <!-- <img src="path/to/your/flyer.jpg" alt="Let's Chicken Flyer" style="max-width: 100%;"> -->
+    </section>
+
+    <section id="menu">
+        <h2>Our Menu</h2>
+        <div class="menu-item">
+            <h3>Whole Chicken</h3>
+            <p>Fresh whole broiler chicken, approximately 1.5-2kg. Price: R50 each.</p>
+        </div>
+        <div class="menu-item">
+            <h3>Chicken Cuts</h3>
+            <p>Breasts, thighs, wings, or drumsticks. Price: R60/kg.</p>
+        </div>
+        <div class="menu-item">
+            <h3>Bulk Order (10+ Chickens)</h3>
+            <p>Discounted rate for bulk purchases. Price: R45 each.</p>
+        </div>
+        <!-- Add more items as needed -->
+    </section>
+
+    <section id="order">
+        <h2>Place an Order</h2>
+        <form id="orderForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" required>
+
+            <label for="address">Delivery Address:</label>
+            <textarea id="address" required></textarea>
+
+            <label for="product">Product:</label>
+            <select id="product" required>
+                <option value="">Select...</option>
+                <option value="whole">Whole Chicken</option>
+                <option value="cuts">Chicken Cuts</option>
+                <option value="bulk">Bulk Order</option>
+            </select>
+
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" min="1" required>
+
+            <label for="notes">Additional Notes:</label>
+            <textarea id="notes"></textarea>
+
+            <button type="submit">Submit Order</button>
+        </form>
+    </section>
+
+    <section id="enquiry">
+        <h2>Make an Enquiry</h2>
+        <form id="enquiryForm">
+            <label for="enq-name">Name:</label>
+            <input type="text" id="enq-name" required>
+
+            <label for="enq-email">Email:</label>
+            <input type="email" id="enq-email" required>
+
+            <label for="enq-phone">Phone:</label>
+            <input type="tel" id="enq-phone" required>
+
+            <label for="enq-message">Message:</label>
+            <textarea id="enq-message" required></textarea>
+
+            <button type="submit">Send Enquiry</button>
+        </form>
+    </section>
+
+    <section id="about">
+        <h2>About Us</h2>
+        <p>Let's Chicken is a family-owned poultry farm located at 55 Mokgapa Street, Mosetjane. We prioritize animal welfare and fresh produce. Established in 2020, we serve the Gauteng region with reliable deliveries.</p>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>Phone: 064 664 3497 / 076 467 9798</p>
+        <p>Email: thorisoabea@gmail.com</p>
+        <p>Address: 55 Mokgapa Street, Mosetjane</p>
+    </section>
+
+    <footer>
+        &copy; 2026 Let's Chicken. All rights reserved.
+    </footer>
+
+    <script>
+        // Basic form submission handling (simulated - in a real site, connect to a backend)
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Your order has been submitted! We will contact you shortly.');
+        });
+
+        document.getElementById('enquiryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Your enquiry has been sent! Expect a response soon.');
+        });
+    </script>
+
+</body>
+</html>
