@@ -39,7 +39,7 @@
 
 <section id="home">
     <h2>Welcome to Let's Chicken</h2>
-    <p>We deliver fresh whole broiler chickens from our farm at 55 Mokgapa Street, Mosetjane.</p>
+    <p>We provide fresh whole broiler chickens from our farm at 55 Mokgapa Street, Mosetjane. Place an order and we'll contact you to arrange pickup.</p>
 </section>
 
 <section id="menu">
@@ -56,6 +56,7 @@
 
 <section id="order">
     <h2>Place an Order</h2>
+    <p>After submitting, we'll reach out via your provided phone or email to confirm details and explain how to receive your chicken (e.g., pickup arrangements).</p>
     <form id="orderForm">
         <label for="name">Full Name:</label>
         <input type="text" id="name" required>
@@ -65,9 +66,6 @@
 
         <label for="phone">Phone:</label>
         <input type="tel" id="phone" required>
-
-        <label for="address">Delivery Address:</label>
-        <textarea id="address" rows="3" required></textarea>
 
         <label for="product">Chicken Type:</label>
         <select id="product" required>
@@ -104,7 +102,7 @@
 
 <section id="about">
     <h2>About Us</h2>
-    <p>Family-owned poultry farm at 55 Mokgapa Street, Mosetjane. Fresh, high-quality broilers delivered in Gauteng.</p>
+    <p>Family-owned poultry farm at 55 Mokgapa Street, Mosetjane. Fresh, high-quality broilers available for pickup in Gauteng.</p>
 </section>
 
 <section id="contact">
@@ -131,7 +129,7 @@
 
     document.getElementById('orderForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        alert('✅ Order submitted successfully!\n\nWe will contact you shortly to confirm and arrange delivery.');
+        alert('✅ Order submitted successfully!\n\nWe will contact you shortly via phone or email to confirm and arrange how you will receive your chicken.');
         this.reset();
         updateTotal();
     });
