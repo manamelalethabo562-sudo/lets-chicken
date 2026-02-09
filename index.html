@@ -19,6 +19,8 @@
         button:hover {background:#a0522d;}
         footer {background:#8b4513; color:white; text-align:center; padding:10px; position:fixed; width:100%; bottom:0;}
         #total {font-size:1.4em; font-weight:bold; color:#8b4513;}
+        .gallery {display: flex; flex-wrap: wrap; justify-content: space-around;}
+        .gallery img {max-width: 45%; margin: 10px; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.2);}
     </style>
 </head>
 <body>
@@ -31,8 +33,8 @@
 <nav>
     <a href="#home">Home</a>
     <a href="#menu">Menu</a>
+    <a href="#gallery">Gallery</a>
     <a href="#order">Order</a>
-    <a href="#enquiry">Enquiry</a>
     <a href="#about">About</a>
     <a href="#contact">Contact</a>
 </nav>
@@ -51,6 +53,16 @@
     <div class="menu-item">
         <h3>Whole Chicken (Cleaned)</h3>
         <p>Cleaned & prepared • R130 each</p>
+    </div>
+</section>
+
+<section id="gallery">
+    <h2>Our Chickens</h2>
+    <p>Take a look at our fresh, farm-raised broiler chickens!</p>
+    <div class="gallery">
+        <img src="https://s3.amazonaws.com/grazecart/thefamilycow/images/1631526540_613f1e8cb42f5.jpg" alt="Broiler chickens on grass">
+        <img src="https://melissaknorris.com/wp-content/uploads/2022/05/Meat-birds_MKN-1024x576.jpg" alt="Group of white broiler chickens">
+        <img src="https://www.acabonacfarms.com/cdn/shop/articles/pasture-raised-chickens.webp?v=1712317758" alt="Chickens in pasture">
     </div>
 </section>
 
@@ -82,21 +94,6 @@
         <textarea id="notes" rows="2"></textarea>
 
         <button type="submit">Submit Order</button>
-    </form>
-</section>
-
-<section id="enquiry">
-    <h2>Make an Enquiry</h2>
-    <form id="enquiryForm">
-        <label for="enq-name">Name:</label>
-        <input type="text" id="enq-name" required>
-        <label for="enq-email">Email:</label>
-        <input type="email" id="enq-email" required>
-        <label for="enq-phone">Phone:</label>
-        <input type="tel" id="enq-phone" required>
-        <label for="enq-message">Message:</label>
-        <textarea id="enq-message" required></textarea>
-        <button type="submit">Send Enquiry</button>
     </form>
 </section>
 
@@ -133,13 +130,8 @@
         this.reset();
         updateTotal();
     });
-
-    document.getElementById('enquiryForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('✅ Enquiry sent! We will reply as soon as possible.');
-        this.reset();
-    });
 </script>
 
 </body>
 </html>
+
