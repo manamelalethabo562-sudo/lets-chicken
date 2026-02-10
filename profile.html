@@ -3,161 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Let's Chicken - Admin Dashboard</title>
+    <title>Let's Chicken - Owner Dashboard</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background: #f4f4f4;
+            background: #f8f1e9;
             color: #333;
         }
         header {
             background: #8b4513;
             color: white;
-            padding: 20px;
+            padding: 25px;
             text-align: center;
-            border-radius: 8px 8px 0 0;
+            border-radius: 10px 10px 0 0;
+            margin: -20px -20px 30px -20px;
         }
-        h1, h2 { margin: 0; }
         .container {
-            max-width: 1100px;
-            margin: 20px auto;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
+        h1, h2 { margin: 0 0 15px 0; }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin: 20px 0;
         }
         th, td {
-            padding: 12px;
+            padding: 14px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #eee;
         }
         th {
             background: #d2a679;
             color: white;
         }
-        tr:hover { background: #f9f9f9; }
+        tr:hover { background: #fff8f0; }
         .total-row {
             font-weight: bold;
-            background: #f0f0f0;
+            background: #f9f5f0;
+            font-size: 1.1em;
         }
         .no-orders {
             text-align: center;
+            padding: 60px;
             color: #777;
-            padding: 40px;
-            font-size: 1.2em;
+            font-size: 1.3em;
+        }
+        .actions {
+            text-align: center;
+            margin: 20px 0;
         }
         button {
-            padding: 10px 15px;
+            padding: 12px 24px;
+            margin: 0 10px;
             background: #8b4513;
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
-            margin: 10px 0;
+            font-size: 1em;
         }
         button:hover { background: #a0522d; }
-        .actions { text-align: center; }
+        .order-id { color: #666; font-size: 0.9em; }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Let's Chicken Admin Dashboard</h1>
-        <p>View All Customer Orders (stored locally in browser)</p>
-    </header>
+<header>
+    <h1>Let's Chicken – Owner Dashboard</h1>
+    <p>View all customer orders (stored in browser)</p>
+</header>
 
-    <div class="container">
-        <h2>Recent Orders</h2>
-        <p id="orderCount">Loading orders...</p>
-        
-        <div class="actions">
-            <button onclick="loadOrders()">Refresh Orders</button>
-            <button onclick="clearAllOrders()">Clear All Orders (Reset)</button>
-        </div>
+<div class="container">
+    <h2>Orders</h2>
+    <p id="orderCount">Loading...</p>
 
-        <table id="ordersTable">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Product</th>
-                    <th>Qty</th>
-                    <th>Total</th>
-                    <th>Notes</th>
-                </tr>
-            </thead>
-            <tbody id="ordersBody"></tbody>
-            <tfoot>
-                <tr class="total-row">
-                    <td colspan="5">Total Revenue (all orders)</td>
-                    <td id="grandTotal">R0.00</td>
-                    <td></td>
-                </tr>
-            </tfoot>
-        </table>
-
-        <div id="noOrders" class="no-orders" style="display:none;">
-            No orders yet. When customers place orders on the main page, they will appear here.
-        </div>
+    <div class="actions">
+        <button onclick="loadOrders()">Refresh</button>
+        <button onclick="clearAllOrders()">Clear All Orders</button>
     </div>
 
-    <script>
-        function loadOrders() {
-            const orders = JSON.parse(localStorage.getItem('letsChickenOrders')) || [];
-            const tbody = document.getElementById('ordersBody');
-            const countEl = document.getElementById('orderCount');
-            const grandTotalEl = document.getElementById('grandTotal');
-            const noOrdersEl = document.getElementById('noOrders');
+    <table id="ordersTable">
+        <thead>
+            <tr>
+                <th>Date & Time</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Total</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody id="ordersBody"></tbody>
+        <tfoot>
+            <tr class="total-row">
+                <td colspan="5">Total Revenue (all orders)</td>
+                <td id="grandTotal">R0.00</td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
 
-            tbody.innerHTML = '';
+    <div id="noOrders" class="no-orders" style="display:none;">
+        No orders yet.<br>
+        When customers place orders on the main page, they will appear here.
+    </div>
+</div>
 
-            if (orders.length === 0) {
-                noOrdersEl.style.display = 'block';
-                countEl.textContent = '0 orders';
-                grandTotalEl.textContent = 'R0.00';
-                return;
-            }
+<script>
+    function loadOrders() {
+        const orders = JSON.parse(localStorage.getItem('letsChickenOrders')) || [];
+        const tbody = document.getElementById('ordersBody');
+        const countEl = document.getElementById('orderCount');
+        const grandTotalEl = document.getElementById('grandTotal');
+        const noOrdersEl = document.getElementById('noOrders');
 
-            noOrdersEl.style.display = 'none';
-            countEl.textContent = `${orders.length} order${orders.length === 1 ? '' : 's'}`;
+        tbody.innerHTML = '';
 
-            let totalRevenue = 0;
-
-            orders.forEach(order => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${order.date}</td>
-                    <td>${order.name}</td>
-                    <td>${order.phone}</td>
-                    <td>${order.product}</td>
-                    <td>${order.quantity}</td>
-                    <td>R${order.total.toFixed(2)}</td>
-                    <td>${order.notes || '-'}</td>
-                `;
-                tbody.appendChild(row);
-                totalRevenue += order.total;
-            });
-
-            grandTotalEl.textContent = 'R' + totalRevenue.toFixed(2);
+        if (orders.length === 0) {
+            noOrdersEl.style.display = 'block';
+            countEl.textContent = '0 orders';
+            grandTotalEl.textContent = 'R0.00';
+            return;
         }
 
-        function clearAllOrders() {
-            if (confirm('Are you sure you want to delete ALL orders? This cannot be undone.')) {
-                localStorage.removeItem('letsChickenOrders');
-                loadOrders();
-                alert('All orders cleared.');
-            }
-        }
+        noOrdersEl.style.display = 'none';
+        countEl.textContent = `${orders.length} order${orders.length === 1 ? '' : 's'}`;
 
-        // Load orders when page opens
-        loadOrders();
-    </script>
+        let totalRevenue = 0;
+
+        orders.forEach(order => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${order.date}<br><span class="order-id">ID: ${order.id}</span></td>
+                <td>${order.name}</td>
+                <td>${order.phone}</td>
+                <td>${order.product}</td>
+                <td style="text-align:center;">${order.quantity}</td>
+                <td>R${order.total.toFixed(2)}</td>
+                <td>${order.notes}</td>
+            `;
+            tbody.appendChild(row);
+            totalRevenue += order.total;
+        });
+
+        grandTotalEl.textContent = 'R' + totalRevenue.toFixed(2);
+    }
+
+    function clearAllOrders() {
+        if (confirm('Are you sure you want to delete ALL orders? This cannot be undone.')) {
+            localStorage.removeItem('letsChickenOrders');
+            loadOrders();
+            alert('All orders cleared.');
+        }
+    }
+
+    // Load orders when page opens
+    loadOrders();
+</script>
 </body>
 </html>
