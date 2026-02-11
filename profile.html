@@ -8,164 +8,183 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
-            background: #f8f1e9;
+            padding: 0;
+            background: #f4f4f4;
             color: #333;
         }
         header {
             background: #8b4513;
             color: white;
-            padding: 25px;
             text-align: center;
-            border-radius: 10px 10px 0 0;
-            margin: -20px -20px 30px -20px;
+            padding: 20px;
         }
+        header h1 { margin: 0; }
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            max-width: 1100px;
+            margin: 20px auto;
+            padding: 0 20px;
         }
-        h1, h2 { margin: 0 0 15px 0; }
+        .controls {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background: #8b4513;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        button:hover { background: #a0522d; }
+        button.clear { background: #c0392b; }
+        button.clear:hover { background: #e74c3c; }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
         }
         th, td {
-            padding: 14px;
+            padding: 12px 15px;
             text-align: left;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #ddd;
         }
         th {
             background: #d2a679;
             color: white;
         }
-        tr:hover { background: #fff8f0; }
-        .total-row {
-            font-weight: bold;
-            background: #f9f5f0;
-            font-size: 1.1em;
-        }
+        tr:hover { background: #f9f9f9; }
         .no-orders {
             text-align: center;
-            padding: 60px;
+            padding: 40px;
+            font-size: 1.2em;
             color: #777;
-            font-size: 1.3em;
         }
-        .actions {
-            text-align: center;
-            margin: 20px 0;
+        .total-row {
+            font-weight: bold;
+            background: #f0f0f0;
         }
-        button {
-            padding: 12px 24px;
-            margin: 0 10px;
-            background: #8b4513;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1em;
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr { display: block; }
+            thead tr { position: absolute; top: -9999px; left: -9999px; }
+            tr { margin-bottom: 15px; border: 1px solid #ccc; }
+            td {
+                border: none;
+                border-bottom: 1px solid #eee;
+                position: relative;
+                padding-left: 50%;
+            }
+            td:before {
+                position: absolute;
+                top: 12px;
+                left: 15px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                font-weight: bold;
+            }
+            td:nth-of-type(1):before { content: "Date"; }
+            td:nth-of-type(2):before { content: "Name"; }
+            td:nth-of-type(3):before { content: "Phone"; }
+            td:nth-of-type(4):before { content: "Product"; }
+            td:nth-of-type(5):before { content: "Qty"; }
+            td:nth-of-type(6):before { content: "Total"; }
+            td:nth-of-type(7):before { content: "Notes"; }
         }
-        button:hover { background: #a0522d; }
-        .order-id { color: #666; font-size: 0.9em; }
     </style>
 </head>
 <body>
-<header>
-    <h1>Let's Chicken – Owner Dashboard</h1>
-    <p>View all customer orders (stored in browser)</p>
-</header>
+    <header>
+        <h1>Let's Chicken - Owner Dashboard</h1>
+        <p>View Orders (saved in browser localStorage – for this device/browser only)</p>
+    </header>
 
-<div class="container">
-    <h2>Orders</h2>
-    <p id="orderCount">Loading...</p>
+    <div class="container">
+        <div class="controls">
+            <button onclick="loadOrders()">Refresh Orders</button>
+            <button class="clear" onclick="clearAllOrders()">Delete All Orders</button>
+        </div>
 
-    <div class="actions">
-        <button onclick="loadOrders()">Refresh</button>
-        <button onclick="clearAllOrders()">Clear All Orders</button>
+        <table id="ordersTable">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Total</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody id="ordersBody"></tbody>
+            <tfoot>
+                <tr class="total-row" id="summaryRow" style="display:none;">
+                    <td colspan="5" style="text-align:right;">Total Orders Value:</td>
+                    <td id="grandTotal">R0.00</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div id="noOrders" class="no-orders" style="display:none;">
+            No orders yet.
+        </div>
     </div>
 
-    <table id="ordersTable">
-        <thead>
-            <tr>
-                <th>Date & Time</th>
-                <th>Name</th>
-                <th>Phone</th>
-                <th>Product</th>
-                <th>Qty</th>
-                <th>Total</th>
-                <th>Notes</th>
-            </tr>
-        </thead>
-        <tbody id="ordersBody"></tbody>
-        <tfoot>
-            <tr class="total-row">
-                <td colspan="5">Total Revenue (all orders)</td>
-                <td id="grandTotal">R0.00</td>
-                <td></td>
-            </tr>
-        </tfoot>
-    </table>
+    <script>
+        function loadOrders() {
+            const orders = JSON.parse(localStorage.getItem('chickenOrders')) || [];
+            const tbody = document.getElementById('ordersBody');
+            const noOrdersDiv = document.getElementById('noOrders');
+            const summaryRow = document.getElementById('summaryRow');
+            const grandTotalEl = document.getElementById('grandTotal');
 
-    <div id="noOrders" class="no-orders" style="display:none;">
-        No orders yet.<br>
-        When customers place orders on the main page, they will appear here.
-    </div>
-</div>
+            tbody.innerHTML = '';
 
-<script>
-    function loadOrders() {
-        const orders = JSON.parse(localStorage.getItem('letsChickenOrders')) || [];
-        const tbody = document.getElementById('ordersBody');
-        const countEl = document.getElementById('orderCount');
-        const grandTotalEl = document.getElementById('grandTotal');
-        const noOrdersEl = document.getElementById('noOrders');
+            if (orders.length === 0) {
+                noOrdersDiv.style.display = 'block';
+                summaryRow.style.display = 'none';
+                return;
+            }
 
-        tbody.innerHTML = '';
+            noOrdersDiv.style.display = 'none';
+            let grandTotal = 0;
 
-        if (orders.length === 0) {
-            noOrdersEl.style.display = 'block';
-            countEl.textContent = '0 orders';
-            grandTotalEl.textContent = 'R0.00';
-            return;
+            orders.forEach(order => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${order.date}</td>
+                    <td>${order.name}</td>
+                    <td>${order.phone}</td>
+                    <td>${order.product}</td>
+                    <td>${order.quantity}</td>
+                    <td>R${order.total.toFixed(2)}</td>
+                    <td>${order.notes || '—'}</td>
+                `;
+                tbody.appendChild(row);
+                grandTotal += order.total;
+            });
+
+            grandTotalEl.textContent = 'R' + grandTotal.toFixed(2);
+            summaryRow.style.display = 'table-row';
         }
 
-        noOrdersEl.style.display = 'none';
-        countEl.textContent = `${orders.length} order${orders.length === 1 ? '' : 's'}`;
-
-        let totalRevenue = 0;
-
-        orders.forEach(order => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${order.date}<br><span class="order-id">ID: ${order.id}</span></td>
-                <td>${order.name}</td>
-                <td>${order.phone}</td>
-                <td>${order.product}</td>
-                <td style="text-align:center;">${order.quantity}</td>
-                <td>R${order.total.toFixed(2)}</td>
-                <td>${order.notes}</td>
-            `;
-            tbody.appendChild(row);
-            totalRevenue += order.total;
-        });
-
-        grandTotalEl.textContent = 'R' + totalRevenue.toFixed(2);
-    }
-
-    function clearAllOrders() {
-        if (confirm('Are you sure you want to delete ALL orders? This cannot be undone.')) {
-            localStorage.removeItem('letsChickenOrders');
-            loadOrders();
-            alert('All orders cleared.');
+        function clearAllOrders() {
+            if (confirm('Are you sure you want to DELETE ALL orders?\nThis cannot be undone.')) {
+                localStorage.removeItem('chickenOrders');
+                loadOrders();
+                alert('All orders cleared.');
+            }
         }
-    }
 
-    // Load orders when page opens
-    loadOrders();
-</script>
+        // Load orders when page opens
+        window.onload = loadOrders;
+    </script>
 </body>
 </html>
