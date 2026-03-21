@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Let's Chicken - Order Fresh Chicken Online</title>
+    <title>Let's Chicken - Premium Farm-Raised Poultry</title>
     <style>
-        /* Smooth scrolling for the lazy folks */
         html { scroll-behavior: smooth; }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             margin:0; 
             padding:0; 
             padding-bottom: 60px; 
@@ -19,19 +18,19 @@
         }
 
         header {
-            background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.9)), url('flyer.jpg'); 
+            background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.95)), url('flyer.jpg'); 
             background-size: cover;
             background-position: center;
             color: #333; 
             text-align: center;
-            padding: 60px 20px; 
+            padding: 80px 20px; 
             border-bottom-left-radius: 50% 10%;
             border-bottom-right-radius: 50% 10%;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            animation: dropIn 0.8s ease-out forwards;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            animation: fadeInDown 0.8s ease-out forwards;
         }
-        header h1 {margin:0; font-size:3em; letter-spacing: -1px; color: #8b4513;}
-        header p {font-style: italic; color: #666;}
+        header h1 {margin:0; font-size:3.2em; letter-spacing: -1px; color: #8b4513;}
+        header p {font-size: 1.1em; color: #555; margin-top: 10px;}
 
         nav {
             background:#d2a679; 
@@ -43,16 +42,16 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         nav a {
             color:white; 
             text-decoration:none; 
-            margin:5px 15px; 
-            font-weight:bold;
+            margin:5px 18px; 
+            font-weight:600;
             text-transform: uppercase;
-            font-size: 0.9em;
-            letter-spacing: 1px;
+            font-size: 0.85em;
+            letter-spacing: 1.2px;
             position: relative;
             transition: color 0.3s;
         }
@@ -61,7 +60,7 @@
             position: absolute;
             width: 0;
             height: 2px;
-            bottom: -4px;
+            bottom: -5px;
             left: 0;
             background-color: #8b4513;
             transition: width 0.3s ease;
@@ -70,132 +69,118 @@
         nav a:hover { color: #8b4513; }
 
         section {
-            padding:30px; 
-            max-width:800px; 
-            margin:30px auto; 
+            padding:40px; 
+            max-width:850px; 
+            margin:40px auto; 
             background:white; 
-            /* Advanced asymmetrical shape */
-            border-radius: 20px 50px 20px 50px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 30px 60px 30px 60px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.04);
             opacity: 0;
             transform: translateY(30px);
             animation: slideUp 0.8s ease-out forwards;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
         }
 
-        /* Staggered animation delays so they don't all appear at once */
-        section:nth-of-type(1) { animation-delay: 0.2s; }
-        section:nth-of-type(2) { animation-delay: 0.4s; }
-        section:nth-of-type(3) { animation-delay: 0.6s; }
-        section:nth-of-type(4) { animation-delay: 0.8s; }
-        section:nth-of-type(5) { animation-delay: 1.0s; }
-        section:nth-of-type(6) { animation-delay: 1.2s; }
+        /* Staggered load animation */
+        section:nth-of-type(1) { animation-delay: 0.1s; }
+        section:nth-of-type(2) { animation-delay: 0.3s; }
+        section:nth-of-type(3) { animation-delay: 0.5s; }
+        section:nth-of-type(4) { animation-delay: 0.7s; }
 
-        h2 { color: #8b4513; border-bottom: 2px dashed #d2a679; padding-bottom: 10px; display: inline-block;}
+        h2 { color: #8b4513; border-bottom: 3px solid #fdf0e3; padding-bottom: 12px; margin-bottom: 25px; }
 
         .menu-item {
             background: #fff9f2;
-            padding: 15px 20px;
+            padding: 20px;
             margin: 15px 0;
-            border-left: 6px solid #d2a679;
+            border-left: 5px solid #d2a679;
             border-radius: 0 20px 20px 0;
-            transition: background 0.3s ease, transform 0.2s ease;
+            transition: all 0.3s ease;
         }
         .menu-item:hover {
             background: #fdf0e3;
-            transform: translateX(10px);
+            transform: scale(1.01);
         }
-        .menu-item h3 { margin: 0 0 5px 0; color: #a0522d;}
-        .menu-item p { margin: 0; color: #555; font-weight: bold;}
+        .menu-item h3 { margin: 0 0 5px 0; color: #a0522d; font-size: 1.3em;}
+        .menu-item p { margin: 0; color: #666; font-weight: 500;}
 
         form {display:flex; flex-direction:column;}
-        label {margin-top:15px; font-weight: bold; color: #555;}
+        label {margin-top:15px; font-weight: 600; color: #444; font-size: 0.9em;}
         input, select, textarea {
-            padding:12px; 
-            margin-top:5px; 
-            border:2px solid #eee; 
-            border-radius:10px;
+            padding:14px; 
+            margin-top:6px; 
+            border:1px solid #ddd; 
+            border-radius:12px;
             font-family: inherit;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
         }
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: #d2a679;
+            border-color: #8b4513;
+            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
         }
         button {
-            margin-top:25px; 
-            padding:15px; 
+            margin-top:30px; 
+            padding:16px; 
             background:#8b4513; 
             color:white; 
             border:none; 
-            border-radius:30px; /* Pill shape */
+            border-radius:50px; 
             font-size:16px; 
             font-weight: bold;
             cursor:pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s ease;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
         button:hover {
             background:#a0522d;
-            transform: scale(1.02);
-            box-shadow: 0 10px 20px rgba(139, 69, 19, 0.3);
+            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.25);
+            transform: translateY(-2px);
         }
 
         footer {
             background:#8b4513; 
             color:white; 
             text-align:center; 
-            padding:15px; 
+            padding:18px; 
             position:fixed; 
             width:100%; 
             bottom:0; 
             left: 0;
             z-index: 1000;
-            font-size: 0.9em;
+            font-size: 0.85em;
         }
         
-        #total {font-size:1.5em; font-weight:bold; color:#8b4513; background: #fff9f2; padding: 5px 15px; border-radius: 20px;}
+        #total {font-size:1.6em; font-weight:bold; color:#8b4513; background: #fff9f2; padding: 8px 20px; border-radius: 30px;}
         
-        .gallery {display: flex; flex-wrap: wrap; justify-content: space-around; gap: 15px;}
+        .gallery {display: flex; flex-wrap: wrap; justify-content: space-around; gap: 20px; margin-top: 20px;}
         .gallery img {
             max-width: 45%; 
-            /* Advanced Blob Shape */
-            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; 
-            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
-            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.6s ease;
             object-fit: cover;
         }
         .gallery img:hover {
-            /* Morphs back to a normal rounded rectangle on hover */
-            border-radius: 15px; 
-            transform: scale(1.05) rotate(2deg);
-            box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+            border-radius: 20px; 
+            transform: scale(1.05);
         }
 
-        /* Keyframe Animations */
-        @keyframes dropIn {
-            0% { transform: translateY(-50px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         @keyframes slideUp {
-            0% { transform: translateY(40px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Mobile Optimization */
         @media (max-width: 600px) {
-            header {padding: 40px 15px; border-radius: 0 0 30% 30%;}
-            header h1 {font-size: 2.2em;}
-            section {margin: 15px; padding: 20px; border-radius: 15px 30px 15px 30px;}
-            .gallery {flex-direction: column; align-items: center;}
-            .gallery img {max-width: 90%; border-radius: 15px; /* Disable blob on mobile for better fit */}
-            .gallery img:hover { transform: scale(1.02); }
-            nav a {margin: 5px 10px; font-size: 0.8em;}
+            header {padding: 60px 15px; border-radius: 0 0 20% 20%;}
+            header h1 {font-size: 2.4em;}
+            section {margin: 20px 15px; padding: 25px; border-radius: 20px;}
+            .gallery img {max-width: 100%; border-radius: 20px;}
+            nav a {margin: 5px 12px; font-size: 0.8em;}
         }
     </style>
 </head>
@@ -203,87 +188,87 @@
 
 <header>
     <h1>Let's Chicken</h1>
-    <p>Because you're clearly not catching them yourself. • Mosetjane</p>
+    <p>Premium Farm-Raised Broiler Chickens • Mosetjane</p>
 </header>
 
 <nav>
     <a href="#home">Home</a>
     <a href="#menu">Menu</a>
     <a href="#gallery">Gallery</a>
-    <a href="#order">Order</a>
-    <a href="#about">About</a>
+    <a href="#order">Place Order</a>
+    <a href="#about">About Us</a>
     <a href="#contact">Contact</a>
 </nav>
 
 <section id="home">
     <h2>Welcome to Let's Chicken</h2>
-    <p>We breed fresh broiler chickens at 55 Mokgapa Street, Mosetjane, so you don't have to ruin your backyard. Fill out the form below, and we'll eventually grace you with a phone call to arrange how you're acquiring your bird.</p>
+    <p>Located at 55 Mokgapa Street, Mosetjane, we specialize in providing high-quality, farm-raised broiler chickens to our community. Our commitment to freshness and ethical farming ensures you receive the best product for your table.</p>
 </section>
 
 <section id="menu">
-    <h2>Our "Menu" (It's just chicken)</h2>
+    <h2>Our Product Selection</h2>
     <div class="menu-item">
         <h3>Whole Chicken (Standard)</h3>
-        <p>A fresh whole broiler. Mostly intact. • R110 each</p>
+        <p>Fresh whole broiler chicken, farm-raised and prepared for sale. • R110 each</p>
     </div>
     <div class="menu-item">
         <h3>Whole Chicken (Cleaned)</h3>
-        <p>Cleaned & prepared, because we did the gross part for you. • R130 each</p>
+        <p>Professionally cleaned and prepared for immediate cooking convenience. • R130 each</p>
     </div>
 </section>
 
 <section id="gallery">
-    <h2>Behold: The Birds</h2>
-    <p>Look at them living their best lives... right up until they meet you.</p>
+    <h2>Our Quality Standards</h2>
+    <p>Experience the care and quality that goes into every bird raised on our farm.</p>
     <div class="gallery">
-        <img src="https://s3.amazonaws.com/grazecart/thefamilycow/images/1631526540_613f1e8cb42f5.jpg" alt="Broiler chickens trying to look busy on grass">
-        <img src="https://melissaknorris.com/wp-content/uploads/2022/05/Meat-birds_MKN-1024x576.jpg" alt="Group of white broiler chickens judging you">
-        <img src="https://www.acabonacfarms.com/cdn/shop/articles/pasture-raised-chickens.webp?v=1712317758" alt="Chickens in pasture, completely unaware">
+        <img src="https://s3.amazonaws.com/grazecart/thefamilycow/images/1631526540_613f1e8cb42f5.jpg" alt="Farm-raised broiler chickens">
+        <img src="https://melissaknorris.com/wp-content/uploads/2022/05/Meat-birds_MKN-1024x576.jpg" alt="Quality white broiler chickens">
+        <img src="https://www.acabonacfarms.com/cdn/shop/articles/pasture-raised-chickens.webp?v=1712317758" alt="Chickens in natural pasture">
     </div>
 </section>
 
 <section id="order">
-    <h2>Demand a Chicken</h2>
-    <p>Give us your details. We'll reach out via phone to make sure you actually want this and aren't just mashing buttons on your keyboard.</p>
+    <h2>Order Inquiry</h2>
+    <p>Please complete the form below to request an order. Once submitted, our team will contact you via phone to confirm availability and coordinate pickup arrangements.</p>
     <form id="orderForm">
-        <label for="name">Your Government Name:</label>
-        <input type="text" id="name" placeholder="John Doe" required>
+        <label for="name">Full Name</label>
+        <input type="text" id="name" placeholder="Enter your full name" required>
         
-        <label for="phone">Digits (So we can call you):</label>
-        <input type="tel" id="phone" placeholder="064 123 4567" required>
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" placeholder="e.g., 064 123 4567" required>
         
-        <label for="product">Which Bird?</label>
+        <label for="product">Select Poultry Type</label>
         <select id="product" required>
             <option value="110">Standard Whole Chicken - R110</option>
             <option value="130">Cleaned Whole Chicken - R130</option>
         </select>
         
-        <label for="quantity">How many?</label>
+        <label for="quantity">Quantity</label>
         <input type="number" id="quantity" min="1" value="1" required>
         
-        <p style="margin:20px 0;">The Damage: <span id="total">R110.00</span></p>
+        <p style="margin:25px 0;">Total Estimated Cost: <span id="total">R110.00</span></p>
         
-        <label for="notes">Demands/Notes (Keep it reasonable):</label>
-        <textarea id="notes" rows="2" placeholder="e.g., 'Please don't call me during my nap.'"></textarea>
+        <label for="notes">Additional Requirements</label>
+        <textarea id="notes" rows="3" placeholder="Please specify any special requests or notes..."></textarea>
         
-        <button type="submit">Take My Money</button>
+        <button type="submit">Submit Order Inquiry</button>
     </form>
 </section>
 
 <section id="about">
-    <h2>About Us</h2>
-    <p>Just a family-owned poultry farm at 55 Mokgapa Street, Mosetjane. We sell high-quality broilers in Gauteng. It's really not that complicated.</p>
+    <h2>About Our Farm</h2>
+    <p>Let's Chicken is a family-owned poultry operation dedicated to excellence. Based at 55 Mokgapa Street in Mosetjane, we serve the Gauteng region with superior broiler chickens, focusing on quality control and customer satisfaction.</p>
 </section>
 
 <section id="contact">
-    <h2>Bother Us Here</h2>
-    <p>📞 064 664 3497 / 076 467 9798 (Call during normal hours, please)</p>
+    <h2>Get in Touch</h2>
+    <p>📞 064 664 3497 / 076 467 9798</p>
     <p>✉️ thorisoabea@gmail.com</p>
-    <p>📍 55 Mokgapa Street, Mosetjane (If you get lost, just follow the clucking)</p>
+    <p>📍 55 Mokgapa Street, Mosetjane, Gauteng</p>
 </section>
 
 <footer>
-    © 2026 Let's Chicken. Don't steal our code, not that you'd know what to do with it.
+    © 2026 Let's Chicken. Quality Poultry, Naturally Raised. All rights reserved.
 </footer>
 
 <script>
@@ -299,7 +284,7 @@
     
     document.getElementById('orderForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        alert('✅ Wow, you actually submitted it.\n\nWe will call you eventually to arrange the handoff. Prepare yourself.');
+        alert('Thank you for your inquiry!\n\nYour request has been received. We will contact you shortly via phone to confirm your order and finalize pickup details.');
         this.reset();
         updateTotal();
     });
