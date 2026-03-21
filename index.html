@@ -5,46 +5,207 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Let's Chicken - Order Fresh Chicken Online</title>
     <style>
-        body {font-family: Arial, sans-serif; margin:0; padding:0; padding-bottom: 50px; background:#f4f4f4; color:#333;}
+        /* Smooth scrolling for the lazy folks */
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin:0; 
+            padding:0; 
+            padding-bottom: 60px; 
+            background:#f4f4f4; 
+            color:#333;
+            overflow-x: hidden;
+        }
+
         header {
-            background-image: url('flyer.jpg'); /* Replace 'flyer.jpg' with your actual image path or URL */
+            background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.9)), url('flyer.jpg'); 
             background-size: cover;
             background-position: center;
-            color: #333; /* Changed to dark for better contrast on light background */
+            color: #333; 
             text-align: center;
-            padding: 40px; /* Increased padding for better visibility */
+            padding: 60px 20px; 
+            border-bottom-left-radius: 50% 10%;
+            border-bottom-right-radius: 50% 10%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: dropIn 0.8s ease-out forwards;
         }
-        header h1 {margin:0; font-size:2.5em;}
-        nav {background:#d2a679; padding:10px; text-align:center; display: flex; flex-wrap: wrap; justify-content: center;}
-        nav a {color:white; text-decoration:none; margin:5px 15px; font-weight:bold;}
-        nav a:hover {text-decoration:underline;}
-        section {padding:20px; max-width:800px; margin:20px auto; background:white; border-radius:8px; box-shadow:0 0 10px rgba(0,0,0,0.1);}
+        header h1 {margin:0; font-size:3em; letter-spacing: -1px; color: #8b4513;}
+        header p {font-style: italic; color: #666;}
+
+        nav {
+            background:#d2a679; 
+            padding:15px; 
+            text-align:center; 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        nav a {
+            color:white; 
+            text-decoration:none; 
+            margin:5px 15px; 
+            font-weight:bold;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+            position: relative;
+            transition: color 0.3s;
+        }
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #8b4513;
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after { width: 100%; }
+        nav a:hover { color: #8b4513; }
+
+        section {
+            padding:30px; 
+            max-width:800px; 
+            margin:30px auto; 
+            background:white; 
+            /* Advanced asymmetrical shape */
+            border-radius: 20px 50px 20px 50px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s ease-out forwards;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        /* Staggered animation delays so they don't all appear at once */
+        section:nth-of-type(1) { animation-delay: 0.2s; }
+        section:nth-of-type(2) { animation-delay: 0.4s; }
+        section:nth-of-type(3) { animation-delay: 0.6s; }
+        section:nth-of-type(4) { animation-delay: 0.8s; }
+        section:nth-of-type(5) { animation-delay: 1.0s; }
+        section:nth-of-type(6) { animation-delay: 1.2s; }
+
+        h2 { color: #8b4513; border-bottom: 2px dashed #d2a679; padding-bottom: 10px; display: inline-block;}
+
+        .menu-item {
+            background: #fff9f2;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-left: 6px solid #d2a679;
+            border-radius: 0 20px 20px 0;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+        .menu-item:hover {
+            background: #fdf0e3;
+            transform: translateX(10px);
+        }
+        .menu-item h3 { margin: 0 0 5px 0; color: #a0522d;}
+        .menu-item p { margin: 0; color: #555; font-weight: bold;}
+
         form {display:flex; flex-direction:column;}
-        label {margin-top:10px;}
-        input, select, textarea {padding:8px; margin-top:5px; border:1px solid #ccc; border-radius:4px;}
-        button {margin-top:15px; padding:12px; background:#8b4513; color:white; border:none; border-radius:4px; font-size:16px; cursor:pointer;}
-        button:hover {background:#a0522d;}
-        footer {background:#8b4513; color:white; text-align:center; padding:10px; position:fixed; width:100%; bottom:0; left: 0;}
-        #total {font-size:1.4em; font-weight:bold; color:#8b4513;}
-        .gallery {display: flex; flex-wrap: wrap; justify-content: space-around;}
-        .gallery img {max-width: 45%; margin: 10px; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.2);}
+        label {margin-top:15px; font-weight: bold; color: #555;}
+        input, select, textarea {
+            padding:12px; 
+            margin-top:5px; 
+            border:2px solid #eee; 
+            border-radius:10px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #d2a679;
+        }
+        button {
+            margin-top:25px; 
+            padding:15px; 
+            background:#8b4513; 
+            color:white; 
+            border:none; 
+            border-radius:30px; /* Pill shape */
+            font-size:16px; 
+            font-weight: bold;
+            cursor:pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        button:hover {
+            background:#a0522d;
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(139, 69, 19, 0.3);
+        }
+
+        footer {
+            background:#8b4513; 
+            color:white; 
+            text-align:center; 
+            padding:15px; 
+            position:fixed; 
+            width:100%; 
+            bottom:0; 
+            left: 0;
+            z-index: 1000;
+            font-size: 0.9em;
+        }
         
-        /* Mobile Optimization Media Query */
+        #total {font-size:1.5em; font-weight:bold; color:#8b4513; background: #fff9f2; padding: 5px 15px; border-radius: 20px;}
+        
+        .gallery {display: flex; flex-wrap: wrap; justify-content: space-around; gap: 15px;}
+        .gallery img {
+            max-width: 45%; 
+            /* Advanced Blob Shape */
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; 
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            object-fit: cover;
+        }
+        .gallery img:hover {
+            /* Morphs back to a normal rounded rectangle on hover */
+            border-radius: 15px; 
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Keyframe Animations */
+        @keyframes dropIn {
+            0% { transform: translateY(-50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes slideUp {
+            0% { transform: translateY(40px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Mobile Optimization */
         @media (max-width: 600px) {
-            header {padding: 20px;}
-            header h1 {font-size: 2em;}
-            section {margin: 15px; padding: 15px;}
+            header {padding: 40px 15px; border-radius: 0 0 30% 30%;}
+            header h1 {font-size: 2.2em;}
+            section {margin: 15px; padding: 20px; border-radius: 15px 30px 15px 30px;}
             .gallery {flex-direction: column; align-items: center;}
-            .gallery img {max-width: 95%; margin: 10px 0;}
-            nav a {margin: 5px 10px;}
+            .gallery img {max-width: 90%; border-radius: 15px; /* Disable blob on mobile for better fit */}
+            .gallery img:hover { transform: scale(1.02); }
+            nav a {margin: 5px 10px; font-size: 0.8em;}
         }
     </style>
 </head>
 <body>
+
 <header>
     <h1>Let's Chicken</h1>
-    <p>Fresh farm-raised chickens • Mosetjane</p>
+    <p>Because you're clearly not catching them yourself. • Mosetjane</p>
 </header>
+
 <nav>
     <a href="#home">Home</a>
     <a href="#menu">Menu</a>
@@ -53,79 +214,96 @@
     <a href="#about">About</a>
     <a href="#contact">Contact</a>
 </nav>
+
 <section id="home">
     <h2>Welcome to Let's Chicken</h2>
-    <p>We provide fresh whole broiler chickens from our farm at 55 Mokgapa Street, Mosetjane. Place an order and we'll contact you to arrange pickup.</p>
+    <p>We breed fresh broiler chickens at 55 Mokgapa Street, Mosetjane, so you don't have to ruin your backyard. Fill out the form below, and we'll eventually grace you with a phone call to arrange how you're acquiring your bird.</p>
 </section>
+
 <section id="menu">
-    <h2>Our Menu</h2>
+    <h2>Our "Menu" (It's just chicken)</h2>
     <div class="menu-item">
         <h3>Whole Chicken (Standard)</h3>
-        <p>Fresh whole broiler • R110 each</p>
+        <p>A fresh whole broiler. Mostly intact. • R110 each</p>
     </div>
     <div class="menu-item">
         <h3>Whole Chicken (Cleaned)</h3>
-        <p>Cleaned & prepared • R130 each</p>
+        <p>Cleaned & prepared, because we did the gross part for you. • R130 each</p>
     </div>
 </section>
+
 <section id="gallery">
-    <h2>Our Chickens</h2>
-    <p>Take a look at our fresh, farm-raised broiler chickens!</p>
+    <h2>Behold: The Birds</h2>
+    <p>Look at them living their best lives... right up until they meet you.</p>
     <div class="gallery">
-        <img src="https://s3.amazonaws.com/grazecart/thefamilycow/images/1631526540_613f1e8cb42f5.jpg" alt="Broiler chickens on grass">
-        <img src="https://melissaknorris.com/wp-content/uploads/2022/05/Meat-birds_MKN-1024x576.jpg" alt="Group of white broiler chickens">
-        <img src="https://www.acabonacfarms.com/cdn/shop/articles/pasture-raised-chickens.webp?v=1712317758" alt="Chickens in pasture">
+        <img src="https://s3.amazonaws.com/grazecart/thefamilycow/images/1631526540_613f1e8cb42f5.jpg" alt="Broiler chickens trying to look busy on grass">
+        <img src="https://melissaknorris.com/wp-content/uploads/2022/05/Meat-birds_MKN-1024x576.jpg" alt="Group of white broiler chickens judging you">
+        <img src="https://www.acabonacfarms.com/cdn/shop/articles/pasture-raised-chickens.webp?v=1712317758" alt="Chickens in pasture, completely unaware">
     </div>
 </section>
+
 <section id="order">
-    <h2>Place an Order</h2>
-    <p>After submitting, we'll reach out via your provided phone to confirm details and explain how to receive your chicken (e.g., pickup arrangements).</p>
+    <h2>Demand a Chicken</h2>
+    <p>Give us your details. We'll reach out via phone to make sure you actually want this and aren't just mashing buttons on your keyboard.</p>
     <form id="orderForm">
-        <label for="name">Full Name:</label>
-        <input type="text" id="name" required>
-        <label for="phone">Phone:</label>
-        <input type="tel" id="phone" required>
-        <label for="product">Chicken Type:</label>
+        <label for="name">Your Government Name:</label>
+        <input type="text" id="name" placeholder="John Doe" required>
+        
+        <label for="phone">Digits (So we can call you):</label>
+        <input type="tel" id="phone" placeholder="064 123 4567" required>
+        
+        <label for="product">Which Bird?</label>
         <select id="product" required>
             <option value="110">Standard Whole Chicken - R110</option>
             <option value="130">Cleaned Whole Chicken - R130</option>
         </select>
-        <label for="quantity">Quantity:</label>
+        
+        <label for="quantity">How many?</label>
         <input type="number" id="quantity" min="1" value="1" required>
-        <p style="margin:15px 0;">Total: <span id="total">R110.00</span></p>
-        <label for="notes">Additional Notes:</label>
-        <textarea id="notes" rows="2"></textarea>
-        <button type="submit">Submit Order</button>
+        
+        <p style="margin:20px 0;">The Damage: <span id="total">R110.00</span></p>
+        
+        <label for="notes">Demands/Notes (Keep it reasonable):</label>
+        <textarea id="notes" rows="2" placeholder="e.g., 'Please don't call me during my nap.'"></textarea>
+        
+        <button type="submit">Take My Money</button>
     </form>
 </section>
+
 <section id="about">
     <h2>About Us</h2>
-    <p>Family-owned poultry farm at 55 Mokgapa Street, Mosetjane. Fresh, high-quality broilers available for pickup in Gauteng.</p>
+    <p>Just a family-owned poultry farm at 55 Mokgapa Street, Mosetjane. We sell high-quality broilers in Gauteng. It's really not that complicated.</p>
 </section>
+
 <section id="contact">
-    <h2>Contact Us</h2>
-    <p>📞 064 664 3497 / 076 467 9798</p>
+    <h2>Bother Us Here</h2>
+    <p>📞 064 664 3497 / 076 467 9798 (Call during normal hours, please)</p>
     <p>✉️ thorisoabea@gmail.com</p>
-    <p>📍 55 Mokgapa Street, Mosetjane</p>
+    <p>📍 55 Mokgapa Street, Mosetjane (If you get lost, just follow the clucking)</p>
 </section>
+
 <footer>
-    © 2026 Let's Chicken. All rights reserved.
+    © 2026 Let's Chicken. Don't steal our code, not that you'd know what to do with it.
 </footer>
+
 <script>
     function updateTotal() {
         const price = parseFloat(document.getElementById('product').value) || 110;
         const qty = parseInt(document.getElementById('quantity').value) || 1;
         document.getElementById('total').textContent = 'R' + (price * qty).toFixed(2);
     }
+    
     document.getElementById('product').addEventListener('change', updateTotal);
     document.getElementById('quantity').addEventListener('input', updateTotal);
     updateTotal();
+    
     document.getElementById('orderForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        alert('✅ Order submitted successfully!\n\nWe will contact you shortly via phone to confirm and arrange how you will receive your chicken.');
+        alert('✅ Wow, you actually submitted it.\n\nWe will call you eventually to arrange the handoff. Prepare yourself.');
         this.reset();
         updateTotal();
     });
 </script>
+
 </body>
 </html>
